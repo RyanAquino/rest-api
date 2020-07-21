@@ -1,3 +1,6 @@
+"""
+Principles Model
+"""
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 
@@ -6,6 +9,9 @@ db = SQLAlchemy()
 
 
 class Principle(db.Model):
+    """
+    Principle DB Model
+    """
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(65))
 
@@ -14,6 +20,9 @@ class Principle(db.Model):
 
 
 class PrincipleSchema(ma.Schema):
+    """
+    Principle Schema
+    """
     class Meta:
         fields = ('id', 'name')
 

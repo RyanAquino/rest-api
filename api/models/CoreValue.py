@@ -1,3 +1,6 @@
+"""
+Core Value Model
+"""
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 
@@ -6,6 +9,9 @@ db = SQLAlchemy()
 
 
 class CoreValue(db.Model):
+    """
+    CoreValue DB model
+    """
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(65))
 
@@ -14,6 +20,9 @@ class CoreValue(db.Model):
 
 
 class CoreValueSchema(ma.Schema):
+    """
+    CoreValue Schema
+    """
     class Meta:
         fields = ('id', 'name')
 
