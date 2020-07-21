@@ -16,6 +16,8 @@ mysqlclient = "*"
 flask-restful = "*"
 black = "*"
 mypy = "*"
+pytest = "*"
+requests = "*"
 
 [requires]
 python_version = "3.8"

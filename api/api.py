@@ -24,7 +24,7 @@ errors = {
     },
 }
 
-api = Api(app)
+api = Api(app, errors=errors)
 db.init_app(app)
 ma.init_app(app)
 

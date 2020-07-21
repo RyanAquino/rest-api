@@ -2,7 +2,7 @@
 Core Values API module
 """
 from flask_restful import Resource
-from flask import request, jsonify
+from flask import request
 from .models.CoreValue import CoreValue
 
 
@@ -24,8 +24,8 @@ class CoreValuesResource(Resource):
 
         :return: added core value json
         """
-        if not request.json["name"]:
-            return {"error": "name is required"}
+        if not request.data or not request.json["name"]:
+            return {"error": "name is required"}, 400
 
         return CoreValue.add(name=request.json["name"])
 
@@ -38,8 +38,6 @@ class CoreValueResource(Resource):
         :param value_id: core value id
         :return: single core value json
         """
-        if not value_id:
-            return {"error": "id is required"}
 
         return CoreValue.get_single(value_id)
 
@@ -62,7 +60,7 @@ class CoreValueResource(Resource):
         :param value_id: core value id
         :return: updated core value json
         """
-        if not request.json["name"]:
-            return jsonify({"error": "name is required"})
+        if not request.data or not request.json["name"]:
+            return {"error": "name is required"}, 400
 
         return CoreValue.change(id=value_id, name=request.json["name"])

@@ -2,7 +2,7 @@
 Principles API module
 """
 from flask_restful import Resource
-from flask import request, jsonify
+from flask import request
 from .models.Principle import Principle
 
 
@@ -23,8 +23,8 @@ class PrinciplesResource(Resource):
         Add a new principle
         :return: added principle json
         """
-        if not request.json["name"]:
-            return {"error": "name is required"}
+        if not request.data or not request.json["name"]:
+            return {"error": "name is required"}, 400
 
         return Principle.add(name=request.json["name"])
 
@@ -57,7 +57,7 @@ class PrincipleResource(Resource):
         :param principle_id: core value id
         :return: updated principle json
         """
-        if not request.json["name"]:
-            return jsonify({"error": "name is required"})
+        if not request.data or not request.json["name"]:
+            return {"error": "name is required"},400
 
         return Principle.change(id=principle_id, name=request.json["name"])
