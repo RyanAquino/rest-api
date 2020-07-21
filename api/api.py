@@ -1,9 +1,8 @@
 from flask import Flask
 from flask_restful import Api
-from .db import db
+from .db import db, ma
 from .principles_api import PrincipleResource
 from .core_values_api import CoreValueResource
-from .models.Principle import ma
 
 
 app = Flask(__name__)
@@ -16,5 +15,3 @@ ma.init_app(app)
 
 api.add_resource(PrincipleResource, '/principles')
 api.add_resource(CoreValueResource, '/values')
-
-
