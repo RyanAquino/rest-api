@@ -12,6 +12,7 @@ class Principle(db.Model):
     """
     Principle DB Model
     """
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(65))
 
@@ -23,8 +24,9 @@ class PrincipleSchema(ma.Schema):
     """
     Principle Schema
     """
+
     class Meta:
-        fields = ('id', 'name')
+        fields = ("id", "name")
 
 
 principle_schema = PrincipleSchema()

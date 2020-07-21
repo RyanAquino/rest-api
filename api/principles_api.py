@@ -27,10 +27,10 @@ class PrinciplesResource(Resource):
         Add a new principle
         :return: added principle json
         """
-        if not request.json['name']:
-            return {'error' : 'name is required'}
+        if not request.json["name"]:
+            return {"error": "name is required"}
 
-        name = request.json['name']
+        name = request.json["name"]
         new_principle = Principle(name)
         db.session.add(new_principle)
         db.session.commit()
@@ -39,7 +39,6 @@ class PrinciplesResource(Resource):
 
 
 class PrincipleResource(Resource):
-
     def get(self, principle_id):
         """
         Get single principle
@@ -71,11 +70,11 @@ class PrincipleResource(Resource):
         :param principle_id: core value id
         :return: updated principle json
         """
-        if not request.json['name'] or request.json['name'] == '':
-            return jsonify({'error': 'name is required'})
+        if not request.json["name"] or request.json["name"] == "":
+            return jsonify({"error": "name is required"})
 
         principle = Principle.query.get(principle_id)
-        principle.name = request.json['name']
+        principle.name = request.json["name"]
         db.session.commit()
 
         return principle_schema.jsonify(principle)

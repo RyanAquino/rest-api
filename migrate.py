@@ -8,7 +8,7 @@ from api.db import db
 
 
 manager = Manager(app)
-manager.add_command('db', MigrateCommand)
+manager.add_command("db", MigrateCommand)
 migrate = Migrate(app, db)
 
 
@@ -28,5 +28,5 @@ class Principle(db.Model):
         self.name = name
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     manager.run()

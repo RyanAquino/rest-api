@@ -28,10 +28,10 @@ class CoreValuesResource(Resource):
 
         :return: added core value json
         """
-        if not request.json['name'] or request.json['name'] == '':
-            return 'Error'
+        if not request.json["name"] or request.json["name"] == "":
+            return "Error"
 
-        name = request.json['name']
+        name = request.json["name"]
         new_value = CoreValue(name)
         db.session.add(new_value)
         db.session.commit()
@@ -71,11 +71,11 @@ class CoreValueResource(Resource):
         :param value_id: core value id
         :return: updated core value json
         """
-        if not request.json['name'] or request.json['name'] == '':
-            return jsonify({'error': 'name is required'})
+        if not request.json["name"] or request.json["name"] == "":
+            return jsonify({"error": "name is required"})
 
         core_value = CoreValue.query.get(value_id)
-        core_value.name = request.json['name']
+        core_value.name = request.json["name"]
         db.session.commit()
 
         return core_value_schema.jsonify(core_value)
