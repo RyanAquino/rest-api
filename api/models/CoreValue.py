@@ -19,6 +19,44 @@ class CoreValue(db.Model):
     def __init__(self, name):
         self.name = name
 
+    @classmethod
+    def get_single(cls, id):
+        values = cls.query.get(id)
+
+        return core_value_schema.jsonify(values)
+
+    @classmethod
+    def view(cls):
+        values = cls.query.all()
+        results = core_values_schema.dump(values)
+
+        return results
+
+    @classmethod
+    def add(cls, **kwargs):
+        name = kwargs["name"]
+        new_value = cls(name)
+        db.session.add(new_value)
+        db.session.commit()
+
+        return core_value_schema.jsonify(new_value)
+
+    @classmethod
+    def change(cls, **kwargs):
+        core_value = cls.query.get(kwargs["id"])
+        core_value.name = kwargs["name"]
+        db.session.commit()
+
+        return core_value_schema.jsonify(core_value)
+
+    @classmethod
+    def delete(cls, **kwargs):
+        value = cls.query.get(kwargs["id"])
+        db.session.delete(value)
+        db.session.commit()
+
+        return core_value_schema.jsonify(value)
+
 
 class CoreValueSchema(ma.Schema):
     """

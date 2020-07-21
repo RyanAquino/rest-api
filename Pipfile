@@ -15,6 +15,7 @@ flask-script = "*"
 mysqlclient = "*"
 flask-restful = "*"
 black = "*"
+mypy = "*"
 
 [requires]
 python_version = "3.8"
