@@ -1,11 +1,7 @@
 """
 Principles Model
 """
-from flask_sqlalchemy import SQLAlchemy
-from flask_marshmallow import Marshmallow
-
-ma = Marshmallow()
-db = SQLAlchemy()
+from api import db, ma
 
 
 class Principle(db.Model):
