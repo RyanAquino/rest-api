@@ -16,8 +16,9 @@ class Principle(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(65))
 
-    def __init__(self, name):
+    def __init__(self, name, id):
         self.name = name
+        self.id = id
 
     @classmethod
     def get_single(cls, principle_id):
@@ -35,7 +36,8 @@ class Principle(db.Model):
     @classmethod
     def add(cls, **kwargs):
         name = kwargs["name"]
-        new_value = cls(name)
+        id = kwargs["id"] if kwargs["id"] else None
+        new_value = cls(name, id)
         db.session.add(new_value)
         db.session.commit()
 

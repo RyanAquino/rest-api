@@ -13,14 +13,14 @@ app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql://{USERNAME}:{PASSWORD}@{HOST}/{
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 errors = {
-    'UserAlreadyExistsError': {
-        'message': "A user with that username already exists.",
-        'status': 409,
+    "UserAlreadyExistsError": {
+        "message": "A user with that username already exists.",
+        "status": 409,
     },
-    'ResourceDoesNotExist': {
-        'message': "A resource with that ID no longer exists.",
-        'status': 410,
-        'extra': "Any extra information you want.",
+    "ResourceDoesNotExist": {
+        "message": "A resource with that ID no longer exists.",
+        "status": 410,
+        "extra": "Any extra information you want.",
     },
 }
 

@@ -6,6 +6,9 @@
 * SQLAlchemy
 * flask-restful
 * MySQL
+* pytest
+* black formatting
+* 
 
 
 ## Setup
@@ -20,7 +23,15 @@
 2. cd to project directory
 3. run migrations - `python migrate db upgrade`
 4. Populate database - `python seed.py`
-5. run server - `python app.py`
+5. create virtual env - `pipenv shell`
+6. install required packages - `pipenv install`
+7. run server - `python app.py`
+
+## To run tests
+> Note: be sure you are inside a virtual environment
+1. `pipenv install --dev`
+2. cd to `rest_api/tests`
+3. run `pytest`
 
 
  

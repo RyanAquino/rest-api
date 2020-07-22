@@ -2,7 +2,7 @@
 Principles API module
 """
 from flask_restful import Resource
-from flask import request
+from flask import request, make_response
 from .models.Principle import Principle
 
 
@@ -26,7 +26,12 @@ class PrinciplesResource(Resource):
         if not request.data or not request.json["name"]:
             return {"error": "name is required"}, 400
 
-        return Principle.add(name=request.json["name"])
+        id = None
+
+        if "id" in request.json:
+            id = request.json["id"]
+
+        return make_response(Principle.add(id=id, name=request.json["name"]), 201)
 
 
 class PrincipleResource(Resource):
@@ -48,7 +53,7 @@ class PrincipleResource(Resource):
         :param principle_id: core value id
         :return: deleted principle json
         """
-        return Principle.delete(id=principle_id)
+        return make_response(Principle.delete(id=principle_id), 204)
 
     def put(self, principle_id):
         """
@@ -58,6 +63,8 @@ class PrincipleResource(Resource):
         :return: updated principle json
         """
         if not request.data or not request.json["name"]:
-            return {"error": "name is required"},400
+            return {"error": "name is required"}, 400
 
-        return Principle.change(id=principle_id, name=request.json["name"])
+        return make_response(
+            Principle.change(id=principle_id, name=request.json["name"]), 200
+        )

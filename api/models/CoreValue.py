@@ -16,7 +16,8 @@ class CoreValue(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(65))
 
-    def __init__(self, name):
+    def __init__(self, name, id):
+        self.id = id
         self.name = name
 
     @classmethod
@@ -30,12 +31,13 @@ class CoreValue(db.Model):
         values = cls.query.all()
         results = core_values_schema.dump(values)
 
-        return results
+        return core_values_schema.jsonify(results)
 
     @classmethod
     def add(cls, **kwargs):
         name = kwargs["name"]
-        new_value = cls(name)
+        id = kwargs["id"] if kwargs["id"] else None
+        new_value = cls(name, id)
         db.session.add(new_value)
         db.session.commit()
 
@@ -47,6 +49,7 @@ class CoreValue(db.Model):
         core_value.name = kwargs["name"]
         db.session.commit()
 
+        print(core_value)
         return core_value_schema.jsonify(core_value)
 
     @classmethod

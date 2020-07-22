@@ -2,7 +2,7 @@
 Core Values API module
 """
 from flask_restful import Resource
-from flask import request
+from flask import request, make_response
 from .models.CoreValue import CoreValue
 
 
@@ -16,7 +16,7 @@ class CoreValuesResource(Resource):
         Get all core values
         :return: list of all core values
         """
-        return CoreValue.view()
+        return make_response(CoreValue.view(), 200)
 
     def post(self):
         """
@@ -27,7 +27,12 @@ class CoreValuesResource(Resource):
         if not request.data or not request.json["name"]:
             return {"error": "name is required"}, 400
 
-        return CoreValue.add(name=request.json["name"])
+        id = None
+
+        if "id" in request.json:
+            id = request.json["id"]
+
+        return make_response(CoreValue.add(id=id, name=request.json["name"]), 201)
 
 
 class CoreValueResource(Resource):
@@ -51,7 +56,7 @@ class CoreValueResource(Resource):
         if not value_id:
             return {"error": "id is required"}
 
-        return CoreValue.delete(id=value_id)
+        return make_response(CoreValue.delete(id=value_id), 204)
 
     def put(self, value_id):
         """
@@ -63,4 +68,6 @@ class CoreValueResource(Resource):
         if not request.data or not request.json["name"]:
             return {"error": "name is required"}, 400
 
-        return CoreValue.change(id=value_id, name=request.json["name"])
+        return make_response(
+            CoreValue.change(id=value_id, name=request.json["name"]), 200
+        )

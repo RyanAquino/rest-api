@@ -4,6 +4,9 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+pytest = "*"
+black = "*"
+mypy = "*"
 
 [packages]
 flask = "*"
@@ -14,10 +17,6 @@ flask-migrate = "*"
 flask-script = "*"
 mysqlclient = "*"
 flask-restful = "*"
-black = "*"
-mypy = "*"
-pytest = "*"
-requests = "*"
 
 [requires]
 python_version = "3.8"
