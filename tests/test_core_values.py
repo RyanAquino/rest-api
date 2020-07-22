@@ -7,7 +7,7 @@ import ast
 import pytest
 
 sys.path.insert(0, os.path.join("..", ""))
-from app import app
+from api import app
 
 
 @pytest.fixture

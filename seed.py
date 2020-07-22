@@ -1,7 +1,6 @@
 from api.models.CoreValue import CoreValue
 from api.models.Principle import Principle
-from api.db import db
-from api.api import app
+from api import db, app
 
 
 CoreValues = [
@@ -28,11 +27,11 @@ Principles = [
 
 with app.app_context():
     for i in CoreValues:
-        core_value = CoreValue(id=None,name=i)
+        core_value = CoreValue(id=None, name=i)
         db.session.add(core_value)
         db.session.commit()
 
     for i in Principles:
-        principle = Principle(id=None,name=i)
+        principle = Principle(id=None, name=i)
         db.session.add(principle)
         db.session.commit()
