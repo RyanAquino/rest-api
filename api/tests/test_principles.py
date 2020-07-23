@@ -11,27 +11,6 @@ def url():
     return "/principles"
 
 
-@pytest.fixture
-def delete_after_post(request, url):
-    def cleanup():
-        client = app.test_client()
-        urlf = f"{url}/{request.node.id}"
-        client.delete(urlf)
-
-    request.addfinalizer(cleanup)
-
-
-@pytest.fixture
-def create_after_deleted(request, url):
-    def cleanup():
-        client = app.test_client()
-        data = {"id": request.node.id, "name": "reverted"}
-        client.post(url, json=data)
-
-    request.addfinalizer(cleanup)
-
-
-# Begin test
 def test_view_all_principles_status_code(url):
     """
     test status code of viewing all principles
@@ -99,8 +78,9 @@ def test_delete_principle(url, create_after_deleted, request):
     Test when deleting a core value
     """
     client = app.test_client()
-    id = 1
-    url = f"{url}/{id}"
+    principle_id = 1
+    url = f"{url}/{principle_id}"
+
     response = client.delete(url)
     assert response.status_code == 204
-    request.node.id = id
+    request.node.id = principle_id

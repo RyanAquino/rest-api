@@ -11,27 +11,6 @@ def url():
     return "/values"
 
 
-@pytest.fixture
-def delete_after_post(request, url):
-    def cleanup():
-        client = app.test_client()
-        urlf = f"{url}/{request.node.id}"
-        client.delete(urlf)
-
-    request.addfinalizer(cleanup)
-
-
-@pytest.fixture
-def create_after_deleted(request, url):
-    def cleanup():
-        client = app.test_client()
-        data = {"id": request.node.id, "name": "this is new model 5!"}
-        client.post(url, json=data)
-
-    request.addfinalizer(cleanup)
-
-
-# Begin test
 def test_view_all_core_values_status_code(url):
     """
     test status code of viewing all core values
