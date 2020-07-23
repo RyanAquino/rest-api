@@ -1,0 +1,153 @@
+swagger: "2.0"
+info:
+  description: "Simple Flask REST API that exposes 4 core values and 12 principles of Agile Software Development"
+  version: "1.0.0"
+  title: "Swagger Simple REST API"
+host: "localhost:5000"
+basePath: "/"
+tags:
+- name: "Core Values"
+  description: "4 Core values of Agile Software Development"
+- name: "Principles"
+  description: "12 Principles of Agile Software Development"
+paths:
+  /values:
+    get:
+      tags:
+      - "Core Values"
+      summary: "View all core values"
+      description: ""
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Successfully Retrieved"
+    post:
+      tags:
+      - "Core Values"
+      summary: "Add a new core value"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "name"
+        description: "New core value to be added"
+        required: true
+      responses:
+        "201":
+          description: "Added successfully"
+  /values/{id}:
+    put:
+      tags:
+      - "Core Values"
+      summary: "Edit a core value"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "name"
+        description: "update the contents of a core value"
+        required: true
+      - in: "path"
+        name: "id"
+        description: "core value id to be updated"
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        "200":
+          description: "Updated successfully"
+    delete:
+      tags:
+      - "Core Values"
+      summary: "Delete a core value"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        description: "core value id to be deleted"
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        "204":
+          description: "Deleted successfully"
+  /principles:
+    get:
+      tags:
+        - "Principles"
+      summary: "View all principles"
+      description: ""
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Successfully Retrieved"
+    post:
+      tags:
+        - "Principles"
+      summary: "Add a new Principle"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "name"
+          description: "Principle value to be added"
+          required: true
+      responses:
+        "201":
+          description: "Added successfully"
+  /principles/{id}:
+    put:
+      tags:
+        - "Principles"
+      summary: "Edit a Principle"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "name"
+          description: "update the contents of a Principle"
+          required: true
+        - in: "path"
+          name: "id"
+          description: "Principle id to be updated"
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        "200":
+          description: "Updated successfully"
+    delete:
+      tags:
+        - "Principles"
+      summary: "Delete a Principle"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "Principle id to be deleted"
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        "204":
+          description: "Deleted successfully"

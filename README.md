@@ -7,6 +7,7 @@
 * flask-restful
 * MySQL
 * pytest
+* Swagger UI
 * black formatting
 * Mypy
 
@@ -33,4 +34,6 @@
 2. run `pytest` in project root directory
 
 
- 
+ ## To access with Swagger UI
+> Note: Be sure server is running
+* access through browser with http://localhost:5000/swagger
