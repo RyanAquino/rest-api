@@ -8,7 +8,7 @@
 * MySQL
 * pytest
 * black formatting
-* 
+* Mypy
 
 
 ## Setup
@@ -30,8 +30,7 @@
 ## To run tests
 > Note: be sure you are inside a virtual environment
 1. `pipenv install --dev`
-2. cd to `rest-api/tests`
-3. run `pytest`
+2. run `pytest` in project root directory
 
 
  

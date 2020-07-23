@@ -1,18 +1,14 @@
 """
 Test core value API endpoints
 """
-import os
-import sys
+from api import app
 import ast
 import pytest
-
-sys.path.insert(0, os.path.join("..", ""))
-from app import app
 
 
 @pytest.fixture
 def url():
-    return "/principles"
+    return "/values"
 
 
 @pytest.fixture
@@ -29,16 +25,16 @@ def delete_after_post(request, url):
 def create_after_deleted(request, url):
     def cleanup():
         client = app.test_client()
-        data = {"id": request.node.id, "name": "reverted"}
+        data = {"id": request.node.id, "name": "this is new model 5!"}
         client.post(url, json=data)
 
     request.addfinalizer(cleanup)
 
 
 # Begin test
-def test_view_all_principles_status_code(url):
+def test_view_all_core_values_status_code(url):
     """
-    test status code of viewing all principles
+    test status code of viewing all core values
     """
     client = app.test_client()
     response = client.get(url)
@@ -46,9 +42,9 @@ def test_view_all_principles_status_code(url):
     assert response.status_code == 200
 
 
-def test_view_all_principles_content_type(url):
+def test_view_all_core_values_content_type(url):
     """
-    test content type of viewing all principles
+    test content type of viewing all core values
     """
     client = app.test_client()
     response = client.get(url)
@@ -56,23 +52,23 @@ def test_view_all_principles_content_type(url):
     assert response.headers["Content-type"] == "application/json"
 
 
-def test_add_new_principle_status_code(url):
+def test_add_new_core_value_status_code(url):
     """
-    Test when adding a new principle
+    Test when adding a new core value
     """
     client = app.test_client()
-    expected = {"name": "This is a new Principle!"}
+    expected = {"name": "new core value"}
 
     response = client.post(url, json=expected)
     assert response.status_code == 201
 
 
-def test_add_new_principle(url, delete_after_post, request):
+def test_add_new_core_value(url, delete_after_post, request):
     """
-    Test when adding a new principles
+    Test when adding a new core value
     """
     client = app.test_client()
-    expected = {"name": "This is a new principle"}
+    expected = {"name": "Individuals and Interactions Over Processes and Tools edited"}
 
     response = client.post(url, json=expected)
     assert response.status_code == 201
@@ -82,14 +78,14 @@ def test_add_new_principle(url, delete_after_post, request):
     request.node.id = response["id"]
 
 
-def test_change_principle(url):
+def test_change_core_value(url):
     """
-    Test when editing a principle
+    Test when adding a new core value
     """
     client = app.test_client()
     id = 1
     url = f"{url}/{id}"
-    data = {"name": "Updating principle"}
+    data = {"name": "updated"}
 
     response = client.put(url, json=data)
     assert response.status_code == 200
@@ -98,7 +94,7 @@ def test_change_principle(url):
     assert response["name"] == data["name"]
 
 
-def test_delete_principle(url, create_after_deleted, request):
+def test_delete_core_value(url, create_after_deleted, request):
     """
     Test when deleting a core value
     """
