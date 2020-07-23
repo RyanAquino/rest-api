@@ -1,5 +1,5 @@
 """
-Test principles API endpoints
+Test core value API endpoints
 """
 import os
 import sys
@@ -7,7 +7,7 @@ import ast
 import pytest
 
 sys.path.insert(0, os.path.join("..", ""))
-from api import app
+from app import app
 
 
 @pytest.fixture

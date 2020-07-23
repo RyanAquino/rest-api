@@ -1,7 +1,11 @@
 """
 Core Value Model
 """
-from api import db, ma
+from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
+
+ma = Marshmallow()
+db = SQLAlchemy()
 
 
 class CoreValue(db.Model):
