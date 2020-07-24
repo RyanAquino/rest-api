@@ -3,14 +3,13 @@
 
 ## Technology 
 * Python
-* SQLAlchemy
-* flask-restful
 * MySQL
-* pytest
+* SQLAlchemy
+* Flask
+* Pytest
 * Swagger UI
 * black formatting
 * Mypy
-
 
 ## Setup
 > Note: Python / MySQL should be installed
@@ -37,3 +36,6 @@
  ## To access with Swagger UI
 > Note: Be sure server is running
 * access through browser with http://localhost:5000/swagger
+
+## MySQL Docker setup
+1. run `docker-compose up` in project root directory
