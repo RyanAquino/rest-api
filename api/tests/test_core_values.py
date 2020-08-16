@@ -62,6 +62,5 @@ def test_delete_core_value(url, create_after_deleted, client, request):
     id = 1
     url = f"{url}/{id}"
     response = client.delete(url)
-    print(response)
     assert response.status_code == 204
     request.node.id = id
