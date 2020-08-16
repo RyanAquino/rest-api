@@ -1,7 +1,8 @@
 """
 Database Config
 """
-USERNAME = "root"
-PASSWORD = "1"
+USERNAME = "user"
+PASSWORD = "password"
 HOST = "127.0.0.1"
-DB = "rest"
+PORT = '3301'
+DB = "rest-api"

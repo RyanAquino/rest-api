@@ -5,11 +5,11 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_restful import Api
 from flask import Flask
-from .config import USERNAME, PASSWORD, DB, HOST
+from .config import USERNAME, PASSWORD, DB, HOST, PORT
 from flask_swagger_ui import get_swaggerui_blueprint
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql://{USERNAME}:{PASSWORD}@{HOST}/{DB}"
+app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DB}"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 api = Api(app)
