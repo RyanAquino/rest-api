@@ -3,7 +3,7 @@ info:
   description: "Simple Flask REST API that exposes 4 core values and 12 principles of Agile Software Development"
   version: "1.0.0"
   title: "Swagger Simple REST API"
-host: "localhost:5000"
+host: "127.0.0.1:5000"
 basePath: "/"
 tags:
 - name: "Core Values"

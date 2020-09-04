@@ -2,6 +2,8 @@ version: "3.1"
 services:
   db:
     image: "mysql:8.0"
+    container_name: "mysql"
+    restart: always
     ports:
       - 3301:3306
     environment:
@@ -11,3 +13,15 @@ services:
       MYSQL_DATABASE: rest-api
     expose:
       - 3306
+  web:
+    container_name: "flask"
+    build:
+      context: .
+    ports:
+      - 5000:5000
+    volumes:
+      - ".:/app"
+    expose:
+      - 5000
+    depends_on:
+      - db
