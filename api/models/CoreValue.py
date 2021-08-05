@@ -45,16 +45,15 @@ class CoreValue(db.Model):
         core_value.name = kwargs["name"]
         db.session.commit()
 
-        print(core_value)
         return core_value_schema.jsonify(core_value)
 
     @classmethod
     def delete(cls, **kwargs):
         value = cls.query.get(kwargs["id"])
-        db.session.delete(value)
+        value = core_value_schema.jsonify(value)
+        cls.query.filter_by(id=kwargs["id"]).delete()
         db.session.commit()
-
-        return core_value_schema.jsonify(value)
+        return value
 
 
 class CoreValueSchema(ma.Schema):
