@@ -50,10 +50,10 @@ class Principle(db.Model):
     @classmethod
     def delete(cls, **kwargs):
         value = cls.query.get(kwargs["id"])
-        db.session.delete(value)
+        value = principle_schema.jsonify(value)
+        cls.query.filter_by(id=kwargs["id"]).delete()
         db.session.commit()
-
-        return principle_schema.jsonify(value)
+        return value
 
 
 class PrincipleSchema(ma.Schema):

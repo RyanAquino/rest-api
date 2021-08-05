@@ -2,69 +2,79 @@
 Test principles API endpoints
 """
 import ast
-import pytest
+from api.tests.factories.principle_factory import PrincipleFactory
+from api.models.Principle import Principle
+from api import app, db
 
 
-@pytest.fixture
-def url():
-    return "/principles"
+class TestPrinciple:
+    url = "/principles"
 
+    @classmethod
+    def setup_method(cls):
+        app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite://"
+        db.create_all()
 
-def test_view_all_principles_status_code(url, client):
-    """
-    test status code of viewing all principles
-    """
-    response = client.get(url)
+    @classmethod
+    def teardown_method(cls):
+        db.drop_all()
 
-    assert response.status_code == 200
+    def test_view_all_principles(self, client):
+        """
+        test viewing all principles
+        """
+        principles = PrincipleFactory.create_batch(5)
+        db.session.add_all(principles)
+        db.session.commit()
 
+        response = client.get(self.url)
+        assert response.status_code == 200
+        assert response.headers["Content-type"] == "application/json"
+        assert db.session.query(Principle).count() == 5
 
-def test_view_all_principles_content_type(url, client):
-    """
-    test content type of viewing all principles
-    """
-    response = client.get(url)
+    def test_add_new_principle(self, client):
+        """
+        Test when adding a new principle
+        """
+        expected = {"name": "This is a new principle"}
 
-    assert response.headers["Content-type"] == "application/json"
+        response = client.post(self.url, json=expected)
+        assert response.status_code == 201
 
+        response = ast.literal_eval(response.data.decode())
+        assert response["name"] == expected["name"]
+        assert Principle.query.count() == 1
 
-def test_add_new_principle(url, delete_after_post, client, request):
-    """
-    Test when adding a new principles
-    """
-    expected = {"name": "This is a new principle"}
+    def test_change_principle(self, client):
+        """
+        Test when editing a principle
+        """
+        principle = PrincipleFactory()
+        db.session.add(principle)
+        db.session.commit()
 
-    response = client.post(url, json=expected)
-    assert response.status_code == 201
+        url = f"{self.url}/{principle.id}"
+        data = {"name": "Updating principle"}
 
-    response = ast.literal_eval(response.data.decode())
-    assert response["name"] == expected["name"]
-    request.node.id = response["id"]
+        response = client.put(url, json=data)
+        assert response.status_code == 200
 
+        response = response.data.decode()
+        response = ast.literal_eval(response)
+        assert response["name"] == data["name"]
 
-def test_change_principle(url, client):
-    """
-    Test when editing a principle
-    """
-    id = 1
-    url = f"{url}/{id}"
-    data = {"name": "Updating principle"}
+    def test_delete_principle(self, client):
+        """
+        Test when deleting a core value
+        """
+        principle = PrincipleFactory()
+        db.session.add(principle)
+        db.session.commit()
 
-    response = client.put(url, json=data)
-    assert response.status_code == 200
+        assert Principle.query.count() == 1
 
-    response = response.data.decode()
-    response = ast.literal_eval(response)
-    assert response["name"] == data["name"]
+        url = f"{self.url}/{principle.id}"
 
-
-def test_delete_principle(url, create_after_deleted, client, request):
-    """
-    Test when deleting a core value
-    """
-    principle_id = 1
-    url = f"{url}/{principle_id}"
-
-    response = client.delete(url)
-    assert response.status_code == 204
-    request.node.id = principle_id
+        response = client.delete(url)
+        assert response.status_code == 204
+        assert Principle.query.count() == 0
