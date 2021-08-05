@@ -5,8 +5,8 @@ verify_ssl = true
 
 [dev-packages]
 pytest = "*"
-black = "*"
-mypy = "*"
+factory-boy = "*"
+pytest-cov = "*"
 
 [packages]
 flask = "*"
